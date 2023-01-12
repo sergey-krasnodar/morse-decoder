@@ -37,9 +37,41 @@ const MORSE_TABLE = {
     '-----':  '0',
 };
 
+
+
+const expr = "00101010100000000010001011101000101110100000111111**********00001011110000111111000010111000101110100000111010"
+let arr = [];
+let arr1 = [];
+let arr2 = [];
+
 function decode(expr) {
-    // write your solution here
+  arr = expr.match(/.{10}/g)
+  arr.map(item => {
+    item.split().map(el => {
+      if (el !== '**********') {
+        arr1.push(el.match(/.{2}/g));
+      } else if (el === '**********') {
+        arr1.push(' ')
+      }
+    })
+  })
+
+  arr1.forEach(item => {
+    for (let i = 0; i < item.length; i++) {
+      if (item[i] === '00') {
+        item[i] = '';
+      } else if (item[i] === '10') {
+        item[i] = '.';
+      } else if (item[i] === '11') {
+        item[i] = '-';
+      } else if (item[i] === ' ') {
+        item[i] = ' ';
+      }
+    }
+  })
+  console.log(arr1)
 }
+console.log(decode(expr))
 
 module.exports = {
     decode
